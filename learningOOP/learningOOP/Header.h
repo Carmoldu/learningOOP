@@ -2,3 +2,7 @@
 void exc1();
 void circles();
 void magicTrick();
+void coord3D();
+void triangles();
+int imc();
+int tirelire();

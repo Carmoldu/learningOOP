@@ -122,6 +122,10 @@
     <ClCompile Include="week1\magicTrick.cpp" />
     <ClCompile Include="week1\tirelire.cc" />
     <ClCompile Include="week1\triangles.cpp" />
+    <ClCompile Include="week2\aperitive.cpp" />
+    <ClCompile Include="week2\bank.cpp" />
+    <ClCompile Include="week2\peluche.cpp" />
+    <ClCompile Include="week2\poem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />

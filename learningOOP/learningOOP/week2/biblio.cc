@@ -23,11 +23,108 @@ d√©truit
 
 */
 
+class Auteur {
+private:
+	string nom; bool awarded;
+
+public:
+	Auteur(string n, bool aw=false)
+		:nom(n), awarded(aw)
+	{}
+
+	string getNom() const { return nom; }
+	bool getPrix() const { return awarded; }
+};
+
+class Oeuvre {
+private:
+	string titre; Auteur const &auteur; string langue;
+
+public:
+	Oeuvre(string titl, Auteur const &aut, string lan)
+		:titre(titl),auteur(aut),langue(lan)
+	{}
+
+	Oeuvre(const Oeuvre&) = delete;
+
+	~Oeuvre()
+	{
+		cout << "L'oeuvre \"" << titre << ", " << auteur.getNom() << ", en " << langue << "\" n'est plus disponible" << endl;
+	}
+
+	string getTitre() const { return titre; }
+	Auteur const getAuteur() { return auteur; }
+	string getLangue() const { return langue; }
+	void affiche() const 
+		{cout << titre << ", " << auteur.getNom() << ", en " << langue;}
+};
+
+class Exemplaire {
+private:
+	Oeuvre const &oeuvre;
+
+public:
+	Exemplaire(Oeuvre const &oeu)
+		:oeuvre(oeu)
+	{
+		cout << "Nouvel exemplaire de : "; oeuvre.affiche(); cout << endl;
+	}
+
+	Exemplaire(Exemplaire const& original)
+		:oeuvre(original.oeuvre)
+	{
+		cout << "Copie díun exemplaire de : "; oeuvre.affiche(); cout << endl;
+	}
+
+	~Exemplaire()
+	{
+		cout << "Un exemplaire de \""; oeuvre.affiche(); cout << "\" a ÈtÈ jetÈ !" << endl;
+	}
+
+	Oeuvre const& getOeuvre() { return oeuvre; }
+
+	void affiche() const { cout << "Exemplaire de : "; oeuvre.affiche(); }
+};
+
+class Bibliotheque {
+private:
+	vector<Exemplaire *> exemplaires; string nom;
+
+public:
+	Bibliotheque(string n)
+		:nom(n)
+	{
+		exemplaires.reserve(15);
+		cout << "La bibliothËque " << nom << " est ouverte !" << endl;
+	}
+
+	string getNom() const { return nom; }
+	void stocker(Oeuvre const& oeu, int n=1)
+	{
+		Exemplaire exemp(oeu);
+
+		for (int i = 0; i < n; i++) 
+		{
+			exemplaires.push_back(&exemp);
+		}
+	}
+
+	void lister_exemplaires(string langue) const
+	{
+		for (int i = 0; i < exemplaires.size(); i++)
+		{
+			Oeuvre &oeuv = *exemplaires[i].getOeuvre();
+			if(oeuv.getLangue()==langue)
+			{ }
+		}
+	}
+
+};
 /*******************************************
  * Ne rien modifier apres cette ligne.
  *******************************************/
 
-int main()
+int biblio()
 {
   Auteur a1("Victor Hugo"),
          a2("Alexandre Dumas"),

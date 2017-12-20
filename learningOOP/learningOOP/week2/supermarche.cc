@@ -1,9 +1,90 @@
 #include <iostream>
+#include<string>
 #include <vector>
+
 using namespace std;
 
+
+class Article {
+private:
+	string nom; double prixUnitaire; bool enAction;
+
+public:
+	Article(string n, double prix, bool enAct)
+		:nom(n),prixUnitaire(prix),enAction(enAct){}
+	Article(string n, double prix)
+		:nom(n), prixUnitaire(prix), enAction(false) {}
+	
+	//getters
+	string	getName()	const { return nom; }
+	double	getPrice()	const { return prixUnitaire; }
+	bool	getSale()	const { return enAction; }
+};
+
+class Achat {
+private:
+	Article article; int quantite; double total;
+
+public:
+	Achat(Article art, int quant)
+		:article(art),quantite(quant)
+	{	
+		if (art.getSale()) { total = quant*art.getPrice()/2; }
+		else { total = quant*art.getPrice(); }
+	}
+
+	void afficher() const 
+	{
+		cout << article.getName() << " : " << article.getPrice() << " x " << quantite << " = " << total << " Frs";
+		if (article.getSale()) { cout << " (en action)" << endl; }
+		else { cout << endl; }
+	}
+
+	double getTotal() const { return total; }
+};
+
+class Caddie {
+private:
+	vector<Achat> achats;
+
+public:
+	Caddie(){ achats.reserve(7); }
+
+	void remplir (Article art, unsigned int quant=1)
+		{  
+		achats.push_back(Achat(art, quant));
+		}
+
+	int caddieSize() const { return achats.size(); }
+
+	double caddieContent() const{
+		double total(0.0);
+		for (int i = 0; i < caddieSize(); i++) {
+			achats[i].afficher();
+			total += achats[i].getTotal();
+			}
+		return total;
+	}
+};
+
+class Caisse {
+private:
+	double total;
+
+public:
+	Caisse():total(0.0){}
+
+	void scanner(Caddie const& cad) {
+		total += cad.caddieContent();
+
+		cout << "-----" << endl << "Total à payer : " << total << " F" << endl;
+	}
+
+	void afficher() const { cout << total << " F"; }
+};
+
 // ======================================================================
-int main()
+int supermarche()
 {
   // Les articles vendus dans le supermarché
   Article choufleur ("Chou-fleur extra"      ,  3.50 );

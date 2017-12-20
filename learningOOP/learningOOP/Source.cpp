@@ -23,7 +23,9 @@ int main() {
 		//aperitive();
 		//poem();
 		//bank();
-		supermarche();
+		//supermarche();
+		//labo();
+		biblio();
 	}
 	return 0;
 }

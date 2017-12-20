@@ -11,3 +11,4 @@ int peluche();
 int aperitive();
 int poem();
 int bank();
+int supermarche();

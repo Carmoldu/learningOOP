@@ -12,3 +12,5 @@ int aperitive();
 int poem();
 int bank();
 int supermarche();
+int labo();
+int biblio();
